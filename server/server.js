@@ -3,8 +3,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
+import workerRoutes from './routes/workerRoutes.js';
 
-dotenv.config({ path: '../.env' }); // Adjust if .env is in server root
+dotenv.config(); // Adjust if .env is in server root
 
 const app = express();
 
@@ -14,11 +15,11 @@ app.use(express.json());
 
 // Connect to Database
 // TODO: Uncomment when ready to connect to MongoDB
-// connectDB();
+connectDB();
 
 // Routes
 app.use('/api/auth', authRoutes);
-
+app.use('/api/workers', workerRoutes);
 // Basic health check route
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'success', message: 'FixNearby API is running' });
